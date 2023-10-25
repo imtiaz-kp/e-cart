@@ -1,11 +1,15 @@
 import React from 'react'
 import { Button, Card, Col, Row } from 'react-bootstrap'
 import useFetch from '../Hooks/usefetch'
+import { useDispatch } from 'react-redux'
+import { addToWishlist } from '../redux/slices/wishlistSlice'
+import { addToCart } from '../redux/slices/cartSlice'
 
 //about exam group told
 function Home() {
   const data = useFetch("https://dummyjson.com/products")
   console.log(data)
+  const dispatch = useDispatch()
   return (
 
     <Row className='ms-5' style={{ marginTop: "100px" }}>
@@ -21,8 +25,8 @@ function Home() {
                   <h5>${product.price}</h5>
                 </Card.Text>
                 <div className='d-flex justify-content-between'>
-                  <Button className='btn btn-light'><i className="fa-solid fa-heart text-danger fa-2x"></i></Button>
-                  <Button className='btn btn-light'><i className="fa-solid fa-cart-plus text-success fa-2x"></i></Button>
+                  <Button onClick={()=>dispatch(addToWishlist(product))}  className='btn btn-light'><i className="fa-solid fa-heart text-danger fa-2x"></i></Button>
+                  <Button  onClick={()=>dispatch(addToCart(product))} className='btn btn-light'><i className="fa-solid fa-cart-plus text-success fa-2x"></i></Button>
                 </div>
               </Card.Body>
             </Card>
